@@ -12,8 +12,11 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $listing = Task::all();
-        return response()->json($listing);
+        $tasks = Task::all();
+        if($tasks->isEmpty()) {
+            return response()->json(['message' => 'No tasks created yet']);
+        }
+        return response()->json($tasks);
     }
 
     /**
