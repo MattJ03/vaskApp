@@ -12,7 +12,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $listing = Task::all();
+        return response()->json($listing);
     }
 
     /**
@@ -20,7 +21,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -28,15 +29,28 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+           'name' => 'required|max:60',
+           'description' => 'required|max:100',
+           'due_date' => 'required|date|after:tomorrow',
+           'status' => 'required|boolean',
+           'user_id' => 'required|integer|exists:users,id',
+        ]);
+
+        $task = Task::create($validatedData);
+        return response()->json($task);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(task $task)
+    public function show($id)
     {
-        //
+        $task = Task::findOrFail($id);
+        if(!$task) {
+            return response()->json(['message' => 'task not found'], 404);
+        }
+        return response()->json($task);
     }
 
     /**
@@ -52,7 +66,19 @@ class TaskController extends Controller
      */
     public function update(Request $request, task $task)
     {
-        //
+        $task = Task::findOrFail($task);
+        if(!$task) {
+            return response()->json(['message' => 'task not found'], 404);
+        }
+        $validatedData = $request->validate([
+            'name' => 'required|max:60',
+            'description' => 'required|max:100',
+            'due_date' => 'required|date|after:tomorrow',
+            'status' => 'required|boolean',
+            'user_id' => 'required|integer|exists:users,id',
+        ]);
+        $task->update($validatedData);
+        return response()->json($task);
     }
 
     /**
@@ -60,6 +86,11 @@ class TaskController extends Controller
      */
     public function destroy(task $task)
     {
-        //
+        $task = Task::findOrFail($task);
+        if(!$task) {
+            return response()->json(['message' => 'task not found'], 404);
+        }
+        $task->delete();
+        return response()->json(['message' => 'task deleted']);
     }
 }
