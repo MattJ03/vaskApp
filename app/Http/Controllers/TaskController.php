@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
@@ -14,6 +15,7 @@ class TaskController extends Controller
     {
         $tasks = Task::all();
         if($tasks->isEmpty()) {
+
             return response()->json(['message' => 'No tasks created yet']);
         }
         return response()->json($tasks);
@@ -39,8 +41,10 @@ class TaskController extends Controller
            'status' => 'required|boolean',
            'user_id' => 'required|integer|exists:users,id',
         ]);
+        Log::info('request validated');
 
         $task = Task::create($validatedData);
+        Log::info('task created', ['task' => $task]);
         return response()->json($task);
     }
 
@@ -53,6 +57,7 @@ class TaskController extends Controller
         if(!$task) {
             return response()->json(['message' => 'task not found'], 404);
         }
+
         return response()->json($task);
     }
 
@@ -80,7 +85,10 @@ class TaskController extends Controller
             'status' => 'required|boolean',
             'user_id' => 'required|integer|exists:users,id',
         ]);
+        Log::info('request validated');
+
         $task->update($validatedData);
+        Log::info('task updated', ['task' => $task]);
         return response()->json($task);
     }
 
