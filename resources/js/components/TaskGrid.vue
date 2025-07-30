@@ -32,7 +32,7 @@ const deleteTask = async () => {
 }
 </script>
 <style>
-task-container {
+.task-container {
     width: 300px;
     height: 200px;
     border-radius: 14px;
@@ -42,7 +42,7 @@ task-container {
     display: flex;
     border: 2px;
 }
-button-delete {
+.button-delete {
      width: 50px;
     height: 35px;
     margin: auto;

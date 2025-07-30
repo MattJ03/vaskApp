@@ -4,7 +4,7 @@ import { createWebHistory } from 'vue-router'
 import Index from '../pages/Index.vue';
 
 const routes = [
-    {path: '/index', component: Index}
+    {path: '/index', component: Index }
 ];
 
 const router = createRouter({
