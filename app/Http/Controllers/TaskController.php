@@ -17,7 +17,7 @@ class TaskController extends Controller
         $tasks = Task::all();
         return response()->json([
            'data' => $tasks,
-           'message' => $tasks.isEmpty() ? 'No tasks created yet' : null,
+           'message' => $tasks->isEmpty() ? 'No tasks created yet' : null,
         ]);
     }
 
