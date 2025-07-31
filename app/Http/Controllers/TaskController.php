@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use function PHPUnit\Framework\isEmpty;
 
 class TaskController extends Controller
 {
@@ -14,11 +15,10 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::all();
-        if($tasks->isEmpty()) {
-
-            return response()->json(['message' => 'No tasks created yet']);
-        }
-        return response()->json($tasks);
+        return response()->json([
+           'data' => $tasks,
+           'message' => $tasks.isEmpty() ? 'No tasks created yet' : null,
+        ]);
     }
 
     /**

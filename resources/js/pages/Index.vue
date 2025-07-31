@@ -1,5 +1,5 @@
 <template>
-    <h1></h1>
+    <h1>Tasks List</h1>
     <div class="tasks">
         <p v-if="loading"> loading tasks... </p>
         <p v-else-if="tasks.length === 0"> No tasks </p>
@@ -32,7 +32,6 @@ onMounted(async () => {
    try {
       const res = await axios.get('/api/tasks');
       tasks.value = res.data;
-      console.log('got tasks');
    } catch(error) {
        console.log('couldnt get tasks', error);
    } finally {
