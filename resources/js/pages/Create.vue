@@ -13,7 +13,7 @@ const router = useRouter();
 
 const createTask = async (payload) => {
     try {
-        await axios.post('api/store', payload);
+        await axios.post('api/tasks/store', payload);
         console.log(payload.json, 'posted to backend');
         await router.push('/index');
     } catch {

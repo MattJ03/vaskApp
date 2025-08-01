@@ -99,17 +99,18 @@ const onSubmit = async () => {
     color: white;
     justify-content: center;
     align-items: center;
+    font-size: 18px;
 }
 .create-field {
     color: white;
 
 }
 .create-button {
-    width: 100px;
-    height: 40px;
+    width: 110px;
+    height: 50px;
     color: black;
     font-size: 16px;
-    border-radius: 14px;
+    border-radius: 12px;
     display: flex;
     justify-content: center;
 

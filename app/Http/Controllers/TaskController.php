@@ -37,9 +37,8 @@ class TaskController extends Controller
         $validatedData = $request->validate([
            'name' => 'required|max:60',
            'description' => 'required|max:100',
-           'due_date' => 'required|date|after:tomorrow',
-           'status' => 'required|boolean',
-           'user_id' => 'required|integer|exists:users,id',
+           'due_date' => 'required|date|after:yesterday',
+           'status' => 'nullable|boolean',
         ]);
         Log::info('request validated');
 
@@ -81,9 +80,8 @@ class TaskController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:60',
             'description' => 'required|max:100',
-            'due_date' => 'required|date|after:tomorrow',
-            'status' => 'required|boolean',
-            'user_id' => 'required|integer|exists:users,id',
+            'due_date' => 'required|date|after:yesterday',
+            'status' => 'nullable|boolean',
         ]);
         Log::info('request validated');
 
