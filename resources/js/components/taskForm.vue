@@ -1,6 +1,6 @@
 <template>
     <form class="form-container" @submit.prevent="onSubmit" novalidate>
-<h4 class="">Create Task</h4>
+        <h4 class="create-header">Create Task</h4>
     <div class="form-group" >
         <label class="create-field"> Name </label>
         <input type="text" v-model="local.name" />
@@ -8,17 +8,17 @@
     </div>
     <div class="form-group">
         <label class="create-field"> Description </label>
-        <input type="text" v-model="local.description" />
+        <textarea v-model="local.description" />
         <p v-if="errors.description"> {{ errors.description }}</p>
     </div>
     <div class="form-group">
-        <label class="create-field"> Due Date </label>
+        <label class="create-field">Due Date </label>
         <input type="date" v-model="local.due_date" />
         <p v-if="errors.due_date"> {{ errors.due_date}}</p>
     </div>
     <div class="form-group">
         <label class="create-field"> Status </label>
-        <input type=checkbox v-model="local.status" />
+        <input type=checkbox v-model="local.status"  />
         <p v-if="errors.status"> {{ errors.status }}</p>
     </div>
         <button class="create-button" type="submit" :disabled="submitting">
@@ -56,7 +56,6 @@ const onSubmit = async () => {
     if(!local.name) errors.name = 'Name required';
     if(!local.description) errors.description = 'Description required';
     if(!local.due_date) errors.due_date = 'due date required';
-    if(!local.status) errors.status ='status required';
     if( errors.name || errors.description || errors.due_date || errors.status) {
         submitting.value = false;
         return;
@@ -81,24 +80,39 @@ const onSubmit = async () => {
     border-radius: 14px;
     border: black;
     color: black;
+    display: flex;
+    flex-direction: column;
+    background-color: black;
     justify-content: center;
+    margin: 0 auto;
+    align-items: center;
 
 }
 .form-group {
     margin-bottom: 3rem;
-    border-radius: 10px;
-    width: 50%;
+    border-radius: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
 }
 .create-header {
     color: white;
+    justify-content: center;
+    align-items: center;
 }
 .create-field {
     color: white;
 
 }
 .create-button {
-    width: 35px;
-    height: 20px;
-    color: white;
+    width: 100px;
+    height: 40px;
+    color: black;
+    font-size: 16px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: center;
+
+
 }
 </style>
