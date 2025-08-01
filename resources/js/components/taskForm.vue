@@ -1,9 +1,30 @@
 <template>
+    <form class="form-container" @submit.prevent="onSubmit" novalidate>
 <h4 class="">Create Task</h4>
     <div class="form-group" >
         <label class="create-field"> Name </label>
-        <input v-model="local.name"
+        <input type="text" v-model="local.name" />
+        <p v-if="errors.name"> {{ errors.name }}</p>
     </div>
+    <div class="form-group">
+        <label class="create-field"> Description </label>
+        <input type="text" v-model="local.description" />
+        <p v-if="errors.description"> {{ errors.description }}</p>
+    </div>
+    <div class="form-group">
+        <label class="create-field"> Due Date </label>
+        <input type="date" v-model="local.due_date" />
+        <p v-if="errors.due_date"> {{ errors.due_date}}</p>
+    </div>
+    <div class="form-group">
+        <label class="create-field"> Status </label>
+        <input type=checkbox v-model="local.status" />
+        <p v-if="errors.status"> {{ errors.status }}</p>
+    </div>
+        <button class="create-button" type="submit" :disabled="submitting">
+            {{ submitLabel }}
+        </button>
+    </form>
 </template>
 <script setup>
 import { ref } from 'vue';
@@ -17,7 +38,11 @@ const props = defineProps({
     model: {
         type: Object,
         default: () => ({name: '', description: '', due_date: '', status: ''}),
-    }
+    },
+    submitLabel: {
+        type: String,
+        default: 'Save',
+    },
 });
 
 const local = reactive({ ... props.model});
@@ -34,12 +59,31 @@ const onSubmit = async () => {
     if(!local.status) errors.status ='status required';
     if( errors.name || errors.description || errors.due_date || errors.status) {
         submitting.value = false;
+        return;
     }
+    try {
+        await emit('submit', { ...local});
+    } catch (e) {
+        errors.value
+    } finally {
+        submitting.value = false;
+    }
+
 
 }
 
 </script>
 <style>
+.form-container {
+    width: 500px;
+    height: 400px;
+    padding: 2px;
+    border-radius: 14px;
+    border: black;
+    color: black;
+    justify-content: center;
+
+}
 .form-group {
     margin-bottom: 3rem;
     border-radius: 10px;
@@ -51,5 +95,10 @@ const onSubmit = async () => {
 .create-field {
     color: white;
 
+}
+.create-button {
+    width: 35px;
+    height: 20px;
+    color: white;
 }
 </style>
