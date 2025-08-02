@@ -1,6 +1,7 @@
 <template>
     <div class="task-container">
         <h3> {{ task.name }} </h3>
+        <hr class="line-break">
         <p> {{task.description}}</p>
         <p> {{ task.due_date }}</p>
         <p> {{ task.status}} </p>
@@ -25,7 +26,7 @@ const props = defineProps({
 
 const deleteTask = async () => {
     try {
-        await axios.delete(`api/tasks/destroy/${props.task.id}`);
+        await axios.delete(`/api/tasks/destroy/${props.task.id}`);
         console.log('task deleted');
     } catch(error) {
         console.log('Task not delete', error);
@@ -40,10 +41,10 @@ const deleteTask = async () => {
     display: grid;
     justify-content: center;
     flex-direction: row;
-    padding: 2px;
+    padding: 1px;
     background-color: black;
     margin: 50px;
-    border: 2px;
+    border: 1px;
     color: white;
 }
 .button-delete {
@@ -60,5 +61,9 @@ const deleteTask = async () => {
 .button-delete:hover {
     background-color: gray;
 
+}
+.line-break {
+    color: white;
+    width: 250px;
 }
 </style>
