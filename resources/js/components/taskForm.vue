@@ -112,11 +112,13 @@ const onSubmit = async () => {
     width: 110px;
     height: 50px;
     color: black;
+    background-color: white;
     font-size: 16px;
     border-radius: 12px;
     display: flex;
     justify-content: center;
-
-
+}
+.create-button:hover {
+    background-color: gray;
 }
 </style>
