@@ -18,7 +18,10 @@
     </div>
     <div class="form-group">
         <label class="create-field"> Status </label>
-        <input type=checkbox v-model="local.status"  />
+        <select v-model="local.status">
+            <option>Complete</option>
+            <option>Incomplete</option>
+        </select>
         <p v-if="errors.status"> {{ errors.status }}</p>
     </div>
         <button class="create-button" type="submit" :disabled="submitting">

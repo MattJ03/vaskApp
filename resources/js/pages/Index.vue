@@ -3,13 +3,12 @@
     <div class="tasks">
         <p v-if="loading"> loading tasks... </p>
         <p v-else-if="tasks.length === 0"> No tasks </p>
-        <div v-else class="task-grid">
+        <div v-else class="tasks-grid">
             <TaskGrid
                 v-for="task in tasks"
                 :key="task.id"
                 :task="task"
                 />
-
         </div>
     </div>
 
@@ -31,9 +30,10 @@ const tasks = ref([]);
 onMounted(async () => {
    try {
       const res = await axios.get('/api/tasks');
-      tasks.value = res.data;
+      console.log('fetch result' + res.data);
+      tasks.value = res.data.data;
    } catch(error) {
-       console.log('couldnt get tasks', error);
+       console.log('couldnt get tasks', error.data);
    } finally {
        loading.value = false;
    }
@@ -43,12 +43,12 @@ onMounted(async () => {
 </script>
 <style>
 .tasks {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: 1rem;
 }
 .tasks-grid {
     display: grid;
+    flex-direction: row;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 </style>

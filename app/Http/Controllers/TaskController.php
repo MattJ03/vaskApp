@@ -38,7 +38,7 @@ class TaskController extends Controller
            'name' => 'required|max:60',
            'description' => 'required|max:100',
            'due_date' => 'required|date|after:yesterday',
-           'status' => 'nullable|boolean',
+           'status' => 'required|in:Complete,Incomplete'
         ]);
         Log::info('request validated');
 
@@ -81,7 +81,7 @@ class TaskController extends Controller
             'name' => 'required|max:60',
             'description' => 'required|max:100',
             'due_date' => 'required|date|after:yesterday',
-            'status' => 'nullable|boolean',
+            'status' => 'required|in:Complete,Incomplete',
         ]);
         Log::info('request validated');
 
